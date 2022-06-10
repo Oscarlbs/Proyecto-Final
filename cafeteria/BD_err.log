@@ -1,0 +1,42 @@
+
+The url cannot be null
+The url cannot be null
+The url cannot be null
+The url cannot be null
+The url cannot be null
+The url cannot be null
+The url cannot be null
+The url cannot be null
+Access denied for user 'root'@'localhost' (using password: YES)
+Unknown database 'null'
+Unknown database 'null'
+Table 'pizzeria.alumnos' doesn't exist
+Table 'pizzeria.alumnos' doesn't exist
+Table 'pizzeria.alumnos' doesn't exist
+Table 'pizzeria.alumnos' doesn't exist
+Table 'pizzeria.alumnos' doesn't exist
+Table 'pizzeria.alumnos' doesn't exist
+Table 'pizzeria.alumnos' doesn't exist
+Table 'pizzeria.alumnos' doesn't exist
+Table 'pizzeria.alumnos' doesn't exist
+Table 'pizzeria.alumnos' doesn't exist
+Duplicate entry '29' for key 'articulo.PRIMARY'
+No value specified for parameter 4
+No value specified for parameter 4
+No value specified for parameter 4
+No value specified for parameter 4
+No value specified for parameter 4
+Parameter index out of range (6 > number of parameters, which is 5).
+Parameter index out of range (6 > number of parameters, which is 5).
+Parameter index out of range (6 > number of parameters, which is 5).
+Duplicate entry '31' for key 'articulo.PRIMARY'
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'p (art_p,tamanho,especialidad,ingredientes,num_ingredientes) VALUES (31,'pequeni' at line 1
+Duplicate entry '31' for key 'articulo.PRIMARY'
+Unknown column 'mediana' in 'field list'
+Unknown column 'mediana' in 'field list'
+Unknown column 'familiar' in 'field list'
+Unknown column 'cuatro_quesos' in 'field list'
+No operations allowed after statement closed.
+No operations allowed after statement closed.
+No operations allowed after statement closed.
+No operations allowed after statement closed.
