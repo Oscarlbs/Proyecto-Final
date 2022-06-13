@@ -1,74 +1,18 @@
-DROP database IF EXISTS cafeteria;
+DROP DATABASE IF EXISTS CAFETERIA;
 
-CREATE database cafeteria;
+CREATE DATABASE CAFETERIA;
 
-use cafeteria;
+USE CAFETERIA;
 
-create table articulo (
+CREATE TABLE ARTICULO (
 
-codigo_articulo int auto_increment PRIMARY KEY,
-stock int NULL,
-precio double NOT NULL,
-
-);
-
-create table ticket (
-
-codigo_articulo int PRIMARY KEY,
-fecha_hora date,
+CODIGO_ARTICULO INT AUTO_INCREMENT PRIMARY KEY,
+STOCK INT NULL,
+PRECIO DOUBLE NOT NULL
 
 );
 
-CREATE TABLE ticket_articulo(
-
-articulo int,
-ticket int,
-articulos_vendidos int NOT NULL,
-
-PRIMARY KEY (ticket,articulo)
-	
-FOREIGN KEY (articulo) REFERENCES articulo(codigo_articulo)
-	ON DELETE CASCADE,
-	ON UPDATE CASCADE,
-	
-foreign key (ticket) references ticket(codigo_ticket)
-	on delete cascade
-	on update cascade
-);
-
-create table bebidas (
-
-articulos_bebidas int,
-tipos_bebidas enum('agua','coca_cola', 'aquarius','nestea','batidos', 'cerveza', 'vino','fanta','sprite','gaseosas') NULL,
-	
-FOREIGN KEY (articulos_bebidas) REFERENCES articulo(codigo_articulo)	
-	ON DELETE CASCADE 
-	ON UPDATE cascade
-	
-);
-
-create table pinchos (
-
-articulo_pincho int,
-tipo_pincho ('tortilla','chorizo','ternera','pulpo','queso','huevo','cerdo','salmon','jamón','lomo'),
-tipos ('pincho', 'tapa', 'racion'),
-alergenos ('lacteos','carnicos','pescado','marisco', 'aceites','huevo','harina','nueces','almendras','gluten'),
-foreign key (articulo_pincho) references articulo(codigo_articulo)
-	on delete cascade
-	on update cascade
-);
-
-create table alergenos (
-
-articulo_alergenos int,
-numero_alergenos enum('lacteos','carnicos','pescado','marisco', 'aceites','huevo','harina','nueces','almendras','gluten' ),
-
-foreign key (art_alergenos) references articulo(cod_art)
-	on delete cascade
-	on update cascade
-);
-
-INSERT INTO articulo (codigo_articulo, stock, precio) VALUES
+INSERT INTO ARTICULO (CODIGO_ARTICULO, STOCK, PRECIO) VALUES
 
 ( '1' , '65' , '5.50' ),
 ( '2' , '52' , '5' ),
@@ -101,232 +45,339 @@ INSERT INTO articulo (codigo_articulo, stock, precio) VALUES
 ( '29', '58' , '3.75' ),
 ( '30 ', '31' , '2.50' );
 
+CREATE TABLE TICKET (
+CODIGO_TICKET INT PRIMARY KEY AUTO_INCREMENT,
+FECHA_HORA TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
-INSERT INTO ticket (codigo_ticket,fecha_hora) VALUES 
-
-( '1'  , '2022-01-24 11:14:24.00' ),
-( '2'  , '2022-03-14 07:24:02.00' ),
-( '3'  , '2022-04-28 07:54:27.00' ),
-( '4'  , '2022-04-7 07:06:20.00' ),
-( '5'  , '2022-07-14 23:17:51.00' ),
-( '6'  , '2022-07-26 09:08:50.00' ),
-( '7'  , '2022-07-14 10:10:53.00' ),
-( '8'  , '2022-07-17 20:13:14.00' ),
-( '9'  , '2022-10-03 23:14:03.00' ),
-( '10' , '2022-11-18 17:11:21.00' );
-
-INSERT INTO ticket_articulo (articulo,articulo_vendido) VALUES 
-
-( '1'  , '1' , '5'  ),
-( '2'  , '2' , '3'  ),
-( '3'  , '3' , '6'  ),
-( '4'  , '4' , '2'  ),
-( '5'  , '5' , '4'  ),
-( '6'  , '6' , '5'  ),
-( '7'  , '7' , '10' ),
-( '16'  , '8' , '12' ),
-( '9'  , '9' , '3'  ),
-( '22' , '10', '6'  );
+INSERT INTO TICKET (FECHA_HORA)VALUES
+('2022-05-20 12:00:00'),('2022-05-21 13:00:00'),('2022-04-18 17:30:00'),
+('2022-05-01 19:00:00'),('2022-05-26 08:30:00'),('2022-04-30 09:45:30');
 
 
-INSERT INTO bebidas (articulo_bebidas,tipos_bebidas) VALUES
+CREATE TABLE BEBIDAS (
 
-( '1'  , 'agua'),
-( '2'  , 'coca_cola'),
-( '3'  , 'aquarius'),
-( '4'  , 'nestea'),
-( '5'  , 'batidos'),
-( '6'  , 'cerveza'),
-( '7'  , 'vino'),
-( '8'  , 'fanta'	),
-( '9'  , 'sprite'),
-( '10' , 'gaseosas');
+ARTICULOS_BEBIDAS INT,
+TIPOS_BEBIDAS ENUM('AGUA','COCA_COLA', 'AQUARIUS','NESTEA','BATIDOS', 'CERVEZA', 'VINO','FANTA','SPRITE','GASEOSAS') NULL,
+	
+FOREIGN KEY (ARTICULOS_BEBIDAS) REFERENCES ARTICULO(CODIGO_ARTICULO)	
+	ON DELETE CASCADE 
+	ON UPDATE CASCADE
+	
+);
 
+INSERT INTO BEBIDAS (ARTICULOS_BEBIDAS,TIPOS_BEBIDAS) VALUES
 
-INSERT INTO pinchos (articulo_pinchos,tipo,alergenos) VALUES
-
-
-( '11','pincho','tortilla','huevo'),
-( '12','pincho','chorizo','carnicos'),
-( '13','pincho','ternera','carnicos'),
-( '14','pincho','pulpo','mariscos'),
-( '15','tapa','queso','lacteos'),
-( '16','tapa','huevo','huevo'),
-( '17','racion','cerdo','carnicos'),
-( '18','tapa','salmon','pescado'),
-( '19','tapa','jamón','carnicos'),
-( '20','tapa','lomo','carnicos');
+( '1'  , 'AGUA'),
+( '2'  , 'COCA_COLA'),
+( '3'  , 'AQUARIUS'),
+( '4'  , 'NESTEA'),
+( '5'  , 'BATIDOS'),
+( '6'  , 'CERVEZA'),
+( '7'  , 'VINO'),
+( '8'  , 'FANTA'),
+( '9'  , 'SPRITE'),
+( '10' , 'GASEOSAS');
 
 
-INSERT INTO alergenos (articulo_alergenos,tipo_alergenos) VALUES 
+CREATE TABLE PINCHOS (
 
-( '21'  , 'lacteos'	),
-( '22'  , 'carnicos'),
-( '23'  , 'pescado'),
-( '24'  , 'marisco'),
-( '25'  , 'aceites'	),
-( '26'  , 'huevo'),
-( '27'  , 'harina'),
-( '28'  , 'nueces'	),
-( '29'  , 'almendras'),
-( '30'  , 'gluten');
+ARTICULO_PINCHO INT PRIMARY KEY,
+TIPO_PINCHO ENUM('TORTILLA','CHORIZO','TERNERA','PULPO','QUESO','HUEVO','CERDO','SALMON','JAMON','LOMO'),
+TIPOS ENUM('PINCHO', 'TAPA', 'RACION'),
+ALERGENOS ENUM('LACTEOS','CARNICOS','PESCADO','MARISCO', 'ACEITES','HUEVO','HARINA','NUECES','ALMENDRAS','GLUTEN'),
+FOREIGN KEY (ARTICULO_PINCHO) REFERENCES ARTICULO(CODIGO_ARTICULO)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
+);
 
+INSERT INTO PINCHOS (ARTICULO_PINCHO,TIPOS,TIPO_PINCHO,ALERGENOS) VALUES
+
+( '11','PINCHO','TORTILLA','HUEVO'),
+( '12','PINCHO','CHORIZO','CARNICOS'),
+( '13','PINCHO','TERNERA','CARNICOS'),
+( '14','PINCHO','PULPO','MARISCO'),
+( '15','TAPA','QUESO','LACTEOS'),
+( '16','TAPA','HUEVO','HUEVO'),
+( '17','RACION','CERDO','CARNICOS'),
+( '18','TAPA','SALMON','PESCADO'),
+( '19','TAPA','JAMON','CARNICOS'),
+( '20','TAPA','LOMO','CARNICOS');
+
+CREATE TABLE ALERGENOS (
+
+ARTICULO_ALERGENOS INT PRIMARY KEY,
+NUMERO_ALERGENOS ENUM('LACTEOS','CARNICOS','PESCADO','MARISCO', 'ACEITES','HUEVO','HARINA','NUECES','ALMENDRAS','GLUTEN' ),
+
+FOREIGN KEY (ARTICULO_ALERGENOS) REFERENCES ARTICULO(CODIGO_ARTICULO)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
+);
+
+INSERT INTO ALERGENOS (ARTICULO_ALERGENOS,NUMERO_ALERGENOS) VALUES 
+
+( '21'  , 'LACTEOS'	),
+( '22'  , 'CARNICOS'),
+( '23'  , 'PESCADO'),
+( '24'  , 'MARISCO'),
+( '25'  , 'ACEITES'	),
+( '26'  , 'HUEVO'),
+( '27'  , 'HARINA'),
+( '28'  , 'NUECES'	),
+( '29'  , 'ALMENDRAS'),
+( '30'  , 'GLUTEN');
+
+#TABLA TICKET ARTICULO
+
+CREATE TABLE TICKET_ARTICULO (
+
+ARTICULO INT,
+TICKET INT,
+ARTICULOS_VENDIDOS INT NOT NULL,
+
+PRIMARY KEY (ARTICULO,TICKET),
+
+FOREIGN KEY (ARTICULO) REFERENCES ARTICULO(CODIGO_ARTICULO)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
+	
+FOREIGN KEY (TICKET) REFERENCES TICKET(CODIGO_TICKET)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
+    
+	
+);
+
+
+/*CORREGIR DA ERROR*/
+
+/*INSERT INTO TICKET_ARTICULO (ARTICULO,TICKET,ARTICULOS_VENDIDOS)VALUES
+#(1,14,1),(1,11,1),(2,14,1),(2,15,1),
+#(3,9,2),(4,13,20),(5,18,2),(5,3,5),(6,10,1),(6,14,6);*/
 
 # TRIGGERS 1 Y 2
 
+# 1. EVITA VENTAS SI NO HAY STOCK.
+# 2. REDUCE EL STOCK DISPONIBLE CON CADA NUEVO TICKET QUE SE Aï¿½ADA.
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS EVITAR_REDUCIR_VENTAS $$
+CREATE TRIGGER EVITAR_REDUCIR_VENTAS
+AFTER INSERT ON TICKET_ARTICULO FOR EACH ROW
+
+BEGIN 
+
+	DECLARE AUX_STOCK INT;
+	DECLARE RESULTADO INT;
+
+	SELECT ARTICULO.STOCK INTO AUX_STOCK
+	FROM TICKET_ARTICULO TA
+	INNER JOIN ARTICULO A ON TA.ART = ARTICULO.CODIGO_ARTICULO
+	WHERE TA.ART = NEW.ART;
 	
-# 1. Evita ventas si NO hay stock.
-# 2. Reduce el stock disponible con cada nuevo ticket que se añada.
+	IF (NEW.ARTICULO_VENDIDO > AUX_STOCK)
+	
+	THEN 
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "ERROR, NO DISPONEMOS DE TANTO STOCK";
+	
+		SIGNAL SQLSTATE '99999' SET MESSAGE_TEXT ="ERROR, NO HAY TANTO STOCK DISPONIBLE";
+	ELSE 
+	
+		SET RESULTADO = AUX_STOCK - NEW.ARTICULO_VENDIDO;
+	
+		UPDATE ARTICULO A SET ARTICULO.STOCK = RESULTADO WHERE ARTICULO.CODIGO_ARTICULO = NEW.ARTICULO;
+	END IF;
 
-delimiter $$
+		UPDATE ARTICULO A SET ARTICULO.STOCK = RESULTADO WHERE ARTICULO.CODIGO_ARTICULO = NEW.ARTICULO;
+		END IF;
+        
+	END;
+    
+    
+    DELIMITER;
+        
+        
+	#******************************************************
+#PRUEBA DEL TRIGGER SI NO HAY STOCK DISPONIBLE
 
-DROP TRIGGER IF EXISTS evitar_reducir_ventas $$
-CREATE TRIGGER evitar_reducir_ventas
-AFTER INSERT ON ticket_articulo for EACH ROW
+/*
+
+INSERT INTO ARTICULO (CODIGO_ARTICULO,STOCK,PRECIO) VALUES
+('22' , '4' , '5.0');
+
+INSERT INTO TICKET (CODIGO_TICKET,FECHA_HORA) VALUES
+('22' , '2022-11-08 11:12:10:06' );
+
+INSERT INTO TICKET_ARTICULO (ART,TICK,ART_VEND) VALUES
+('22' , '2' , '10'); 
+
+*/
+
+#******************************************************
+# TRIGGER QUE ACTUALIZA EL STOCK
+
+/*
+
+INSERT INTO ARTICULO (COD_ART,STOCK,PRECIO) VALUES
+('22' , '9' , '5.0');
+
+INSERT INTO TICKET (COD_TICK,FECHA_HORA) VALUES
+('22' , '2022-11-08 11:11:21.00' );
+
+INSERT INTO TICKET_ARTICULO (ARTICULO,TICK,ART_VEND) VALUES
+('22' , '31' , '5'); 
+
+SELECT *
+	FROM TICKET_ARTICULO TA 
+	INNER JOIN ARTICULO A ON TA.ART = A.COD_ART 
+	WHERE TA.ART = 31 ;
+
+*/
+        
+        
+# 3. TRIGGER, AUMENTA EL STOCK CON CADA TICKET QUE SE BORRE.
+
+DELIMITER $$
+
+
+DROP TRIGGER IF EXISTS DEVOLUCION $$
+CREATE TRIGGER DEVOLUCION
+BEFORE DELETE ON TICKET_ARTICULO FOR EACH ROW 
 
 BEGIN 
 	
-	DECLARE aux_stock int;
-	DECLARE resultado int;
-
-	SELECT articulo.stock INTO aux_stock
-	FROM ticket_articulo ta
-	INNER JOIN articulo a ON ta.art = a.cod_art
-	WHERE ta.art = NEW.art;
+	DECLARE AUX_STOCK INT;
+    DECLARE RESULTADO INT;
 	
-	IF (NEW.articulo_vendido > aux_stock)
-	
-	THEN 
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Error, no disponemos de tanto stock";
-	
-		signal SQLSTATE '99999' SET message_text ="Error, no hay tanto stock disponible";
-	else 
-	
-		SET resultado = aux_stock - NEW.articulo_vendido;
-	
-		update articulo a set a.stock = resultado where a.cod_art = new.art;
-	end if;
+	SELECT ARTICULO.STOCK INTO AUX_STOCK
+	FROM TICKET_ARTICULO TA
+	INNER JOIN ARTICULO A ON TA.ART = ARTICULO.CODIGO_ARTICULO
+	WHERE TA.ART = OLD.ARTICULO;
 
-		UPDATE articulo a SET articulo.stock = resultado WHERE articulo.codigo_articulo = NEW.articulo;
-		END IF;
-END;
-$$
-
-delimiter ;
-
-
-# 3. TRIGGER, aumenta el stock con cada ticket que se borre.
-
-delimiter $$
-DROP TRIGGER IF EXISTS devolucion $$
-CREATE TRIGGER devolucion
-BEFORE DELETE ON ticket_articulo FOR EACH ROW 
-
-begin 
-	
-	DECLARE aux_stock int;
-	DECLARE aux_stock int;
-
-	
-	SELECT articulo.stock INTO aux_stock
-	FROM ticket_articulo ta
-	inner JOIN articulo a ON ta.art = a.codigo_articulo
-	WHERE ta.art = OLD.art;
-
-	SET resultado = aux_stock + OLD.articulo_vendidos;
-	UPDATE articulo a SET articulo.stock = resultado WHERE articulo.codigo_articulo = OLD.articulo;
+	SET RESULTADO = AUX_STOCK + OLD.ARTICULOS_VENDIDOS;
+	UPDATE ARTICULO A SET ARTICULO.STOCK = RESULTADO WHERE ARTICULO.CODIGO_ARTICULO = OLD.ARTICULO;
+    
 	
 END;
-$$
-
-delimiter;
 
 
-# 4. TRIGGER aumenta o reduce el stock disponible ante cambios en los ticket.
+DELIMITER 
+
+#PRUEBAS TRIGGER AUMENTAR STOCK CON CADA TICKET BORRADO
+
+/*
+
+INSERT INTO ARTICULO (CODIGO_ARTICULO,STOCK,PRECIO) VALUES
+('31' , '11' , '5.0');
+
+INSERT INTO TICKET (CODIGO_TICKET,FECHA_HORA) VALUES
+('31' , '2022-11-08 11:11:21.00' );
+
+INSERT INTO TICKET_ARTICULO (ARTICULO,TICKET,ARTICULO_VENDIDOS) VALUES
+('31' , '31' , '5'); 
+
+SELECT *
+	FROM TICKET_ARTICULO TA 
+	INNER JOIN ARTICULO A ON TA.ART = ARTICULO.CODIGO_ARTICULO
+	WHERE TA.ART = 31 ;
+
+DELETE 
+	FROM TICKET_ARTICULO TA 
+	WHERE TA.ART = 31 ; 
+
+SELECT *
+	FROM ARTICULO A 
+	WHERE A.COD_ART = 31;
+
+*/
+
+# 4. TRIGGER AUMENTA O REDUCE EL STOCK DISPONIBLE ANTE CAMBIOS EN LOS TICKET.
+
+/*DELIMITER //
 
 
-delimiter $$
-
-
-DROP TRIGGER IF EXISTS update_stock $$
-CREATE TRIGGER update_stock
-AFTER UPDATE ON ticket_articulo FOR EACH ROW 
+DROP TRIGGER IF EXISTS UPDATE_STOCK //
+CREATE TRIGGER UPDATE_STOCK
+AFTER UPDATE ON TICKET_ARTICULO FOR EACH ROW 
 
 BEGIN
 	
 	
-	DECLARE aux_stock int;
-	DECLARE resultado int;
-	SET resultado = aux_stock - NEW.articulo;
+	DECLARE AUX_STOCK INT;
+	DECLARE RESULTADO INT;
+	SET RESULTADO = AUX_STOCK - NEW.ARTICULO;
 
-	SELECT articulo.stock INTO aux_stock
-	FROM ticket_articulo ta
-	INNER JOIN articulo a ON a.codigo_articulo = ta.articulo
-	WHERE a.cod_art = NEW.articulo;
+	SELECT ARTICULO.STOCK INTO AUX_STOCK
+	FROM TICKET_ARTICULO TA
+	INNER JOIN ARTICULO A ON ARTICULO.CODIGO_ARTICULO = TA.ARTICULO
+	WHERE ARTICULO.CODIGO_ARTICULO = NEW.ARTICULO;
 	
-	UPDATE articulo SET articulo.stock = aux_stock + NEW.articulo
+	UPDATE ARTICULO SET ARTICULO.STOCK = AUX_STOCK + NEW.ARTICULO
 	
-
+	
 END;
-$$
-
-delimiter;
+//
 
 
-# 5. Vision de los articulos disponibles para el dependiente.
+DELIMITER;
+
+*/
 
 
-DROP VIEW IF EXISTS articulos_disponibles;
-CREATE VIEW articulos_disponibles AS
+# 5. VISION DE LOS ARTICULOS DISPONIBLES PARA EL DEPENDIENTE.
+
+
+DROP VIEW IF EXISTS ARTICULOS_DISPONIBLES;
+CREATE VIEW ARTICULOS_DISPONIBLES AS
 SELECT *
-FROM articulo articulos
-LEFT JOIN pinchos p ON p.articulos_pinchos = articulos.codigo_articulos
-LEFT JOIN bebidas b ON b.articulos_bebidas = articulos.codigo_articulos
-LEFT JOIN alergenos al ON al.articulo_alergenos = articulos.codigo_articulos
+FROM ARTICULO A
+LEFT JOIN BEBIDAS B ON B.ARTICULOS_BEBIDAS = A.CODIGO_ARTICULO 
+LEFT JOIN PINCHOS P ON P.ARTICULO_PINCHO  = A.CODIGO_ARTICULO
+LEFT JOIN ALERGENOS AL ON AL.ARTICULO_ALERGENOS = A.CODIGO_ARTICULO
 
-WHERE articulos.stock > 0;
-
-
-# 6. Vista del administrador con los datos ordenados del mas reciente al mas antiguo.
+WHERE A.STOCK > 0;
 
 
-DROP VIEW IF EXISTS resum_tickets;
-CREATE VIEW resum_tickets AS
+# 6. VISTA DEL ADMINISTRADOR CON LOS DATOS ORDENADOS DEL MAS RECIENTE AL MAS ANTIGUO.
+
+
+DROP VIEW IF EXISTS RESUM_TICKETS;
+CREATE VIEW RESUM_TICKETS AS
 SELECT*
-FROM ticket t 
-ORDER BY t.fecha_hora ASC;
+FROM TICKET T 
+ORDER BY T.FECHA_HORA ASC;
 
 
-# 7. Vista del administrador con los datos de los 5 articulos mas vendidos.
+# 7. VISTA DEL ADMINISTRADOR CON LOS DATOS DE LOS 5 ARTICULOS MAS VENDIDOS.
 
 
-DROP VIEW IF EXISTS resum_art ;
-CREATE VIEW resum-art AS 
-SELECT articulo.codigo_articulo, p.*, b.*, al.*, sum(ta.articulo_vend) AS suma_precios
-FROM articulo articulos
-LEFT JOIN pinchos p ON p.articulos_pinchos = articulos.codigo_articulos
-LEFT JOIN bebidas b ON b.articulos_bebidas = articulos.codigo_articulos
-LEFT JOIN alergenos al ON al.articulo_alergenos = articulos.codigo_articulos
-INNER JOIN ticket_articulo ta ON ta.articulo = a.cod_art
-GROUP BY a.cod_art ORDER BY suma_preciosa DESC;
+DROP VIEW IF EXISTS RESUM_ART ;
+CREATE VIEW RESUM_ART AS 
+SELECT A.CODIGO_ARTICULO, P.*, B.*, AL.*, SUM(TA.ARTICULOS_VENDIDOS) AS SUMA_PRECIOS
+FROM ARTICULO A
+LEFT JOIN PINCHOS P ON P.ARTICULO_PINCHO  = A.CODIGO_ARTICULO
+LEFT JOIN BEBIDAS B ON B.ARTICULOS_BEBIDAS  = A.CODIGO_ARTICULO
+LEFT JOIN ALERGENOS AL ON AL.ARTICULO_ALERGENOS = A.CODIGO_ARTICULO
+INNER JOIN TICKET_ARTICULO TA ON TA.ARTICULO = A.CODIGO_ARTICULO
+GROUP BY A.CODIGO_ARTICULO ORDER BY SUMA_PRECIOS DESC LIMIT 5;
 
-# Roles
+# ROLES
 
 
-DROP ROLE IF EXISTS administrador;
-DROP ROLE IF EXISTS dependiente;
+DROP ROLE IF EXISTS ADMINISTRADOR;
+DROP ROLE IF EXISTS DEPENDIENTE;
 
-CREATE ROLE administrador;
-CREATE ROLE dependiente;
+CREATE ROLE ADMINISTRADOR;
+CREATE ROLE DEPENDIENTE;
 
-GRANT ALL PRIVILEGES ON resum_tickets TO administrador;
-GRANT ALL PRIVILEGES ON resum_articulos TO administrador;
-GRANT ALL PRIVILEGES ON articulos_disponibles TO administrador;
+GRANT ALL PRIVILEGES ON RESUM_TICKETS TO ADMINISTRADOR;
+GRANT ALL PRIVILEGES ON RESUM_ARTICULOS TO ADMINISTRADOR;
+GRANT ALL PRIVILEGES ON ARTICULOS_DISPONIBLES TO ADMINISTRADOR;
 
-GRANT INSERT, DROP, SELECT, UPDATE ON resum_tickets TO administrador;
-GRANT INSERT, DROP, SELECT, UPDATE ON resum_art TO administrador;
-GRANT SELECT ON arts_disponibles TO dependiente;
-
+GRANT INSERT, DROP, SELECT, UPDATE ON RESUM_TICKETS TO ADMINISTRADOR;
+GRANT INSERT, DROP, SELECT, UPDATE ON RESUM_ART TO ADMINISTRADOR;
+GRANT SELECT ON ARTICULOS_DISPONIBLES TO DEPENDIENTE;
 
 
 
